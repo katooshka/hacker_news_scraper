@@ -1,9 +1,9 @@
-package scraper;
+package main;
+
+import static data.Constants.FUNCTION_NAME;
+import static data.Constants.MAX_POSTS_NUMBER;
 
 public class ArgumentsChecker {
-    private static final String FUNCTION_NAME = "--posts";
-    private static final int MAX_POSTS_NUMBER = 100;
-
     /**
      * Returns number of posts that are to be printed.
      * The first argument represents the name of the function that outputs top Hacker News posts
