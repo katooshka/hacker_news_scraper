@@ -8,6 +8,30 @@ public class Post {
     private int comments;
     private int rank;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
     public static class Builder {
         private String title;
         private String uri;
@@ -70,5 +94,31 @@ public class Post {
                 ", comments=" + comments +
                 ", rank=" + rank +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Post)) return false;
+
+        Post post = (Post) o;
+
+        if (points != post.points) return false;
+        if (comments != post.comments) return false;
+        if (rank != post.rank) return false;
+        if (!title.equals(post.title)) return false;
+        if (!uri.equals(post.uri)) return false;
+        return author.equals(post.author);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + uri.hashCode();
+        result = 31 * result + author.hashCode();
+        result = 31 * result + points;
+        result = 31 * result + comments;
+        result = 31 * result + rank;
+        return result;
     }
 }

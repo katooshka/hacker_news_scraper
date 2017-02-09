@@ -5,22 +5,26 @@ import data.Post;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.IOException;
-import java.net.URL;
+import java.io.StringReader;
 
 public class JsonToPostConverter {
-    public static JsonObject downloadJsonObject(String postUrl) {
+
+    private WebPageDownloader webPageDownloader;
+
+    public JsonToPostConverter(WebPageDownloader webPageDownloader) {
+        this.webPageDownloader = webPageDownloader;
+    }
+
+    public JsonObject downloadJsonObject(String postUrl) {
         JsonObject jsonObject;
-        try (JsonReader jr = Json.createReader(new URL(postUrl).openStream())) {
-            jsonObject = jr.readObject();
-        } catch (IOException e) {
-            throw new RuntimeException("Error occurred while downloading web page: " + postUrl);
+        try (JsonReader jsonReader = Json.createReader(new StringReader(webPageDownloader.downloadWebPage(postUrl)))) {
+            jsonObject = jsonReader.readObject();
         }
         return jsonObject;
     }
 
     //TODO: add uri validation
-    public static Post createPostFromJsonObject(JsonObject jsonObject, int rank) {
+    public Post createPostFromJsonObject(JsonObject jsonObject, int rank) {
         String title = jsonObject.getString("title");
         String url = jsonObject.getString("url");
         String author = jsonObject.getString("by");

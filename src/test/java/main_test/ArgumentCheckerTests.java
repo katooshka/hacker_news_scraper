@@ -67,4 +67,9 @@ public class ArgumentCheckerTests {
             assertEquals("Second argument is greater than 100", e.getMessage());
         }
     }
+
+    @Test
+    public void readArguments_shouldReturnSecondArgument() {
+        assertEquals(5, readArguments(new String[]{"--posts", "5"}));
+    }
 }

@@ -6,5 +6,5 @@ public class Constants {
 
     public static String TOP_500_POSTS_LINK = "https://hacker-news.firebaseio.com/v0/topstories";
     public static String EMPTY_POST_INFO_LINK = "https://hacker-news.firebaseio.com/v0/item/";
-    public static String JSON_FORMAT_ENDING = ".json?print=pretty";
+    public static String LINK_ENDING = ".json?print=pretty";
 }
