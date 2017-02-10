@@ -1,20 +1,54 @@
 package scraper_test;
 
+import org.junit.Before;
 import org.junit.Test;
 import scraper.PostsIdsDownloader;
 import scraper.WebPageDownloader;
 
-import static org.junit.Assert.assertArrayEquals;
+import javax.json.Json;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PostsIdsDownloaderTests {
 
+    private WebPageDownloader webPageDownloader;
+    private PostsIdsDownloader postsIdsDownloader;
+
+    @Before
+    public void setUp() {
+        webPageDownloader = mock(WebPageDownloader.class);
+        postsIdsDownloader = new PostsIdsDownloader(webPageDownloader);
+    }
+
     @Test
-    public void transformPostsIdsStringToArray_ShouldReturnArray() {
-        String testString = "[123, 456,, 789,  123[, 45[]6, [7],8,9, 333, 333, 333";
-        int postNumber = 6;
-        PostsIdsDownloader postsIdsDownloader = new PostsIdsDownloader(new WebPageDownloader());
-        assertArrayEquals(
-                new String[]{"123", "456,", "789", "123", "456", "7,8,9"},
-                postsIdsDownloader.transformPostsIdsStringToArray(testString, postNumber));
+    public void downloadPostsIdsAsJsonArray_shouldThrow_WhenPostsIdsInWrongFormat() {
+        when(webPageDownloader.downloadWebPage("abc")).thenReturn("}:=3");
+        try {
+            postsIdsDownloader.downloadPostsIdsAsJsonArray("abc");
+            fail();
+        } catch (RuntimeException e) {
+            //expected
+        }
+    }
+
+    @Test
+    public void downloadPostsIdsAsJsonArray_ShouldReturnJsonArray() {
+        when(webPageDownloader.downloadWebPage("abc")).thenReturn("[1, 2, 3]");
+        assertEquals(
+                Json.createArrayBuilder().add(1).add(2).add(3).build(),
+                postsIdsDownloader.downloadPostsIdsAsJsonArray("abc")
+        );
+    }
+
+    @Test
+    public void convertJsonArrayToList_ShouldReturnIntegerList() {
+        assertEquals(
+                Arrays.asList(1, 2, 3),
+                postsIdsDownloader.convertJsonArrayToList(Json.createArrayBuilder().add(1).add(2).add(3).build())
+        );
     }
 }

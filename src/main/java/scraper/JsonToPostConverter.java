@@ -15,7 +15,7 @@ public class JsonToPostConverter {
         this.webPageDownloader = webPageDownloader;
     }
 
-    public JsonObject downloadJsonObject(String postUrl) {
+    public JsonObject downloadPostAsJsonObject(String postUrl) {
         JsonObject jsonObject;
         try (JsonReader jsonReader = Json.createReader(new StringReader(webPageDownloader.downloadWebPage(postUrl)))) {
             jsonObject = jsonReader.readObject();
@@ -23,8 +23,7 @@ public class JsonToPostConverter {
         return jsonObject;
     }
 
-    //TODO: add uri validation
-    public Post createPostFromJsonObject(JsonObject jsonObject, int rank) {
+    public Post convertJsonObjectToPost(JsonObject jsonObject, int rank) {
         String title = jsonObject.getString("title");
         String url = jsonObject.getString("url");
         String author = jsonObject.getString("by");

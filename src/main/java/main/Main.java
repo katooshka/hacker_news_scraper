@@ -29,14 +29,11 @@ public class Main {
                     postToJsonConverter.createJsonFromPost(posts[i])
             );
         }
-        System.out.println(Arrays.toString(posts));
-        System.out.println();
         System.out.println(Arrays.toString(jsonObjects));
         System.out.println();
     }
 
-    //TODO: change usage message
     private static void showUsage() {
-        System.err.println("hackernews --posts n");
+        System.err.println("Usage: hackernews --posts <number of posts>");
     }
 }

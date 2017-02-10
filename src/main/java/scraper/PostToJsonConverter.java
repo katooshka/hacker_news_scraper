@@ -23,6 +23,8 @@ public class PostToJsonConverter {
                         .build();
     }
 
+    //TODO: optimize generator
+    //TODO: change pretty printing pattern
     public String createStringFromJsonObject(JsonObject jsonObject) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Map<String, String> generatorConfig = new HashMap<>();

@@ -3,7 +3,6 @@ package scraper_test;
 import data.Post;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import scraper.JsonToPostConverter;
 import scraper.WebPageDownloader;
 
@@ -12,8 +11,10 @@ import javax.json.JsonObject;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-//TODO: decide how to check Uri validator
+//TODO: add URI test
 public class JsonToPostConverterTests {
 
     private WebPageDownloader downloader;
@@ -21,8 +22,27 @@ public class JsonToPostConverterTests {
 
     @Before
     public void setUp() {
-        downloader = Mockito.mock(WebPageDownloader.class);
+        downloader = mock(WebPageDownloader.class);
         jsonToPostConverter = new JsonToPostConverter(downloader);
+    }
+
+    @Test
+    public void downloadPostAsJsonObject_ShouldThrow_WhenPostInWrongFormat() {
+        when(downloader.downloadWebPage("abc")).thenReturn("^_^");
+        try {
+            jsonToPostConverter.downloadPostAsJsonObject("abc");
+            fail();
+        } catch (RuntimeException e) {
+            // expected
+        }
+    }
+
+    @Test
+    public void downloadPostAsJsonObject_ShouldReturnJsonObject() {
+        when(downloader.downloadWebPage("abc")).thenReturn("{\n  \"by\" : \"houston\" \n}");
+        assertEquals(Json.createObjectBuilder().add("by", "houston").build(),
+                jsonToPostConverter.downloadPostAsJsonObject("abc")
+        );
     }
 
     @Test
@@ -99,7 +119,7 @@ public class JsonToPostConverterTests {
 
     private void checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(JsonObject testJsonObject) {
         try {
-            jsonToPostConverter.createPostFromJsonObject(testJsonObject, 1);
+            jsonToPostConverter.convertJsonObjectToPost(testJsonObject, 1);
             fail("IllegalArgumentException expected");
         } catch (IllegalArgumentException e) {
             assertEquals("One or more fields of this post are in wrong format", e.getMessage());
@@ -116,7 +136,7 @@ public class JsonToPostConverterTests {
                 .add("descendants", 1)
                 .build();
         try {
-            jsonToPostConverter.createPostFromJsonObject(testJsonObject, -1);
+            jsonToPostConverter.convertJsonObjectToPost(testJsonObject, -1);
             fail("IllegalArgumentException expected");
         } catch (IllegalArgumentException e) {
             assertEquals("One or more fields of this post are in wrong format", e.getMessage());
@@ -133,15 +153,15 @@ public class JsonToPostConverterTests {
                 .add("descendants", 1)
                 .build();
         assertEquals(
-                jsonToPostConverter.createPostFromJsonObject(testJsonObject, 1),
+                jsonToPostConverter.convertJsonObjectToPost(testJsonObject, 1),
                 new Post.Builder()
-                .setTitle("title")
-                .setUri("https://www.google.co.uk/")
-                .setAuthor("author")
-                .setPoints(1)
-                .setComments(1)
-                .setRank(1)
-                .build());
+                        .setTitle("title")
+                        .setUri("https://www.google.co.uk/")
+                        .setAuthor("author")
+                        .setPoints(1)
+                        .setComments(1)
+                        .setRank(1)
+                        .build());
     }
 
     private static String generate257CharsLongString() {
