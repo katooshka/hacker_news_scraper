@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WebPageDownloader {
+
+    /**
+     * Downloads content of given URL and returns it in String format.
+     *
+     * @param url web address
+     * @throws RuntimeException if page cannot be reached
+     * @return downloaded web page content in String form
+     */
     public String downloadWebPage(String url) {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {

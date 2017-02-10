@@ -11,6 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Converts given post into JsonObject.
+ */
 public class PostToJsonConverter {
     public JsonObject createJsonFromPost(Post post) {
         return Json.createObjectBuilder()
@@ -23,6 +26,12 @@ public class PostToJsonConverter {
                         .build();
     }
 
+    /**
+     * Creates String from given post in JsonObject form by using pretty printing formatting.
+     *
+     * @param jsonObject post in JsonObject form
+     * @return post in formatted String form
+     */
     //TODO: optimize generator
     //TODO: change pretty printing pattern
     public String createStringFromJsonObject(JsonObject jsonObject) {
