@@ -22,14 +22,14 @@ public class Main {
         WebPageDownloader webPageDownloader = new WebPageDownloader();
         PostsGetter postsGetter = new PostsGetter(new PostsIdsDownloader(webPageDownloader), new JsonToPostConverter(webPageDownloader));
         Post[] posts = postsGetter.getPosts(postsNumber);
-        String[] jsonObjects = new String[postsNumber];
+        String[] postsAsStrings = new String[postsNumber];
         PostToJsonConverter postToJsonConverter = new PostToJsonConverter();
         for (int i = 0; i < posts.length; i++) {
-            jsonObjects[i] = postToJsonConverter.createStringFromJsonObject(
+            postsAsStrings[i] = postToJsonConverter.createStringFromJsonObject(
                     postToJsonConverter.createJsonFromPost(posts[i])
             );
         }
-        System.out.println(Arrays.toString(jsonObjects));
+        System.out.println(Arrays.toString(postsAsStrings));
         System.out.println();
     }
 

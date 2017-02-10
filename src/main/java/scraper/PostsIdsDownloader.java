@@ -1,5 +1,6 @@
 package scraper;
 
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonReader;
