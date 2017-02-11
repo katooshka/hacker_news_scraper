@@ -26,19 +26,6 @@ public class PostToJsonConverterTests {
         assertEquals(expectedJsonObject, postToJsonConverter.createJsonFromPost(testPost));
     }
 
-    @Test
-    public void createStringFromJsonObject_ShouldReturnString() {
-        String expectedString = "\n" + "{\n" +
-                "    \"title\":\"title\",\n" +
-                "    \"uri\":\"uri\",\n" +
-                "    \"author\":\"author\",\n" +
-                "    \"points\":1,\n" +
-                "    \"comments\":1,\n" +
-                "    \"rank\":1\n" +
-                "}";
-        assertEquals(expectedString, postToJsonConverter.createStringFromJsonObject(createTestJsonObject()));
-    }
-
     private JsonObject createTestJsonObject() {
         return Json.createObjectBuilder()
                 .add("title", "title")

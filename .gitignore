@@ -1,3 +1,6 @@
 .idea
 hacker_news_scraper.iml
 target/
+.DS_Store
+dependency-reduced-pom.xml
+

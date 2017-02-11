@@ -122,7 +122,7 @@ public class JsonToPostConverterTests {
             jsonToPostConverter.convertJsonObjectToPost(testJsonObject, 1);
             fail("IllegalArgumentException expected");
         } catch (IllegalArgumentException e) {
-            assertEquals("One or more fields of this post are in wrong format", e.getMessage());
+            assertEquals("One or more fields of this post are in a wrong format", e.getMessage());
         }
     }
 
@@ -139,7 +139,7 @@ public class JsonToPostConverterTests {
             jsonToPostConverter.convertJsonObjectToPost(testJsonObject, -1);
             fail("IllegalArgumentException expected");
         } catch (IllegalArgumentException e) {
-            assertEquals("One or more fields of this post are in wrong format", e.getMessage());
+            assertEquals("One or more fields of this post are in a wrong format", e.getMessage());
         }
     }
 

@@ -8,10 +8,10 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsIdsDownloader {
+public class PostsIdsFetcher {
     private WebPageDownloader webPageDownloader;
 
-    public PostsIdsDownloader(WebPageDownloader webPageDownloader) {
+    public PostsIdsFetcher(WebPageDownloader webPageDownloader) {
         this.webPageDownloader = webPageDownloader;
     }
 
