@@ -1,8 +1,7 @@
-package main_test;
+package main;
 
 import data.Post;
 import data.PostsAndErrorMessagesContainer;
-import main.Main;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class MainTests {
+public class MainTest {
 
     private static final Post EXPECTED_POST_111 = new Post.Builder()
             .setTitle("title111")

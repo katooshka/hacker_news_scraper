@@ -1,10 +1,8 @@
-package scraper_test;
+package scraper;
 
 import data.Post;
 import org.junit.Before;
 import org.junit.Test;
-import scraper.JsonToPostConverter;
-import scraper.WebPageDownloader;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -15,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 //TODO: add URI test
-public class JsonToPostConverterTests {
+public class JsonToPostConverterTest {
 
     private WebPageDownloader downloader;
     private JsonToPostConverter jsonToPostConverter;

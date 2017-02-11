@@ -1,14 +1,9 @@
-package scraper_test;
+package scraper;
 
 import data.Post;
 import data.PostsAndErrorMessagesContainer;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import scraper.JsonToPostConverter;
-import scraper.PostsGetter;
-import scraper.PostsIdsFetcher;
-import scraper.WebPageDownloader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class PostsGetterTests {
+public class PostsGetterTest {
     private WebPageDownloader webPageDownloader;
     private PostsIdsFetcher postsIdsFetcher ;
     private JsonToPostConverter jsonToPostConverter;

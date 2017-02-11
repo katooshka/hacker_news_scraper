@@ -1,10 +1,9 @@
-package scraper_test;
+package scraper;
 
 import org.junit.Assert;
 import org.junit.Test;
-import scraper.URIValidator;
 
-public class URIValidatorTests {
+public class URIValidatorTest {
 
     @Test
     public void isValid_ShouldReturnFalse_WhenUriIsInvalid() {

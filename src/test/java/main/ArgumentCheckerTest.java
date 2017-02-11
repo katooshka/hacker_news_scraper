@@ -1,4 +1,4 @@
-package main_test;
+package main;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static main.ArgumentsReader.readArguments;
 
-public class ArgumentCheckerTests {
+public class ArgumentCheckerTest {
 
     @Test
     public void readArguments_shouldThrow_whenWrongArgumentsNumber() {

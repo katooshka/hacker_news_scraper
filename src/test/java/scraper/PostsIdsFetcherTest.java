@@ -1,9 +1,7 @@
-package scraper_test;
+package scraper;
 
 import org.junit.Before;
 import org.junit.Test;
-import scraper.PostsIdsFetcher;
-import scraper.WebPageDownloader;
 
 import javax.json.Json;
 import java.util.Arrays;
@@ -13,7 +11,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class PostsIdsFetcherTests {
+public class PostsIdsFetcherTest {
 
     private WebPageDownloader webPageDownloader;
     private PostsIdsFetcher postsIdsFetcher;

@@ -1,15 +1,14 @@
-package scraper_test;
+package scraper;
 
 import data.Post;
 import org.junit.Test;
-import scraper.PostToJsonConverter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 
 import static org.junit.Assert.assertEquals;
 
-public class PostToJsonConverterTests {
+public class PostToJsonConverterTest {
     private PostToJsonConverter postToJsonConverter = new PostToJsonConverter();
 
     @Test

@@ -1,12 +1,11 @@
-package scraper_test;
+package scraper;
 
 import org.junit.Test;
-import scraper.WebPageDownloader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class WebPageDownloaderTests {
+public class WebPageDownloaderTest {
 
     @Test
     public void downloadWebPage_ShouldThrow_WhenUrlNotValid() {
