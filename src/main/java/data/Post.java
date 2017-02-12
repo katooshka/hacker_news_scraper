@@ -85,18 +85,6 @@ public class Post {
     }
 
     @Override
-    public String toString() {
-        return "Post{" +
-                "title='" + title + '\'' +
-                ", uri='" + uri + '\'' +
-                ", author='" + author + '\'' +
-                ", points=" + points +
-                ", comments=" + comments +
-                ", rank=" + rank +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Post)) return false;
@@ -120,5 +108,17 @@ public class Post {
         result = 31 * result + comments;
         result = 31 * result + rank;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", uri='" + uri + '\'' +
+                ", author='" + author + '\'' +
+                ", points=" + points +
+                ", comments=" + comments +
+                ", rank=" + rank +
+                '}';
     }
 }

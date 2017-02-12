@@ -1,6 +1,5 @@
-package main;
+package cli;
 
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import data.Post;
 import data.PostsAndErrorMessagesContainer;
 import scraper.*;
@@ -13,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static main.ArgumentsReader.readArguments;
+import static cli.ArgumentsReader.readArguments;
 
 public class Main {
 
@@ -63,8 +62,7 @@ public class Main {
         }
 
         //print posts
-        PostsAndErrorMessagesContainer container = postsGetter.getPosts
-                (postsNumber);
+        PostsAndErrorMessagesContainer container = postsGetter.getPosts(postsNumber);
         JsonArray jsonArray = convertPostsToJsonArray(container.getPosts());
         printJsonArray(jsonArray, System.out);
 
@@ -90,10 +88,8 @@ public class Main {
     public void printJsonArray(JsonArray jsonArray, PrintStream ps) {
         Map<String, String> generatorConfig = new HashMap<>();
         generatorConfig.put(JsonGenerator.PRETTY_PRINTING, "true");
-        JsonWriterFactory writerFactory = Json.createWriterFactory
-                (generatorConfig);
-        JsonWriter jsonWriter = writerFactory.createWriter(ps,
-                StandardCharsets.UTF_8);
+        JsonWriterFactory writerFactory = Json.createWriterFactory(generatorConfig);
+        JsonWriter jsonWriter = writerFactory.createWriter(ps, StandardCharsets.UTF_8);
         jsonWriter.writeArray(jsonArray);
         ps.println();
         jsonWriter.close();

@@ -1,4 +1,4 @@
-package main;
+package cli;
 
 import static data.Constants.FUNCTION_NAME;
 import static data.Constants.MAX_POSTS_NUMBER;
@@ -7,13 +7,13 @@ public class ArgumentsReader {
     /**
      * Returns number of posts that are to be printed.
      * The first argument represents the name of the function that outputs top Hacker News posts
-     * and should be equal to '--posts'. The second argument represents a number of posts to be printed
-     * and should be a value from 1 to 100 inclusive.
+     * and should be equal to '--posts'. The second argument represents a number of posts to be
+     * printed and should be a value from 1 to 100 inclusive.
      *
-     * @param args a String array containing name of the print function and number of posts to be printed
+     * @param args a String array containing print function name and number of posts to be printed
      * @return number of posts to be printed
-     * @throws IllegalArgumentException if number of arguments differs from two
-     *                                  or if the format of arguments is wrong
+     * @throws IllegalArgumentException if number of arguments differs from two or
+     *                                  if the format of arguments is wrong
      */
     public static int readArguments(String[] args) {
         if (args.length != 2) {
@@ -36,7 +36,8 @@ public class ArgumentsReader {
             throw new IllegalArgumentException("Second argument is zero");
         }
         if (secondArgument > MAX_POSTS_NUMBER) {
-            throw new IllegalArgumentException("Second argument is greater than " + MAX_POSTS_NUMBER);
+            throw new IllegalArgumentException("Second argument is greater than " +
+                    MAX_POSTS_NUMBER);
         }
         return secondArgument;
     }

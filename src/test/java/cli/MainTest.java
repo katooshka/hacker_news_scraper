@@ -1,4 +1,4 @@
-package main;
+package cli;
 
 import data.Post;
 import data.PostsAndErrorMessagesContainer;
@@ -64,7 +64,6 @@ public class MainTest {
     private PostToJsonConverter postToJsonConverter;
     private Main main;
 
-
     @Before
     public void setUpStreams() {
         outContent = new ByteArrayOutputStream();
@@ -87,18 +86,16 @@ public class MainTest {
     public void run_ShouldPrintToStderr_WhenArgumentsInWrongFormat() {
         main.run(new String[]{"--posts", "string"});
         assertEquals("Second argument is not a number" + "\n" +
-                        "Usage: hackernews --posts <number of posts>\n",
-                errContent.toString());
+                        "Usage: hackernews --posts <number of posts>\n", errContent.toString());
     }
 
     @Test
     public void run_ErrorMessageToStderr_WhenTopPostsIdsWebPageInaccessible() {
         List<String> errorMessages = new ArrayList<>();
-        String expectedError = "Error occurred while downloading web page: " +
-        TOP_POSTS_IDS_URL;
+        String expectedError = "Error occurred while downloading web page: " + TOP_POSTS_IDS_URL;
         errorMessages.add(expectedError);
-        PostsAndErrorMessagesContainer postsAndErrorMessagesContainer = new
-                PostsAndErrorMessagesContainer(Collections.emptyList(), errorMessages);
+        PostsAndErrorMessagesContainer postsAndErrorMessagesContainer =
+                new PostsAndErrorMessagesContainer(Collections.emptyList(), errorMessages);
         when(postsGetter.getPosts(3)).thenReturn(postsAndErrorMessagesContainer);
         main.run(new String[]{"--posts", "3"});
         assertEquals(expectedError + "\n", errContent.toString());
@@ -113,7 +110,7 @@ public class MainTest {
                 new PostsAndErrorMessagesContainer(posts, Collections.emptyList());
         when(postsGetter.getPosts(2)).thenReturn(postsAndErrorMessagesContainer);
         main.run(new String[]{"--posts", "2"});
-        assertEquals(EXPECTED_OUTPUT, outContent.toString());
+        assertEquals(EXPECTED_OUTPUT + "\n", outContent.toString());
         assertEquals("", errContent.toString());
     }
 
@@ -123,13 +120,12 @@ public class MainTest {
         posts.add(EXPECTED_POST_111);
         posts.add(EXPECTED_POST_222);
         List<String> errorMessages = new ArrayList<>();
-        String expectedError = "Post 3: One or more fields of this post are in a wrong format";
-        errorMessages.add(expectedError);
+        errorMessages.add("Post 3: Some random error");
         PostsAndErrorMessagesContainer postsAndErrorMessagesContainer =
                 new PostsAndErrorMessagesContainer(posts, errorMessages);
         when(postsGetter.getPosts(3)).thenReturn(postsAndErrorMessagesContainer);
         main.run(new String[]{"--posts", "3"});
-        assertEquals(EXPECTED_OUTPUT, outContent.toString());
-        assertEquals("Post 3: One or more fields of this post are in a wrong format\n", errContent.toString());
+        assertEquals(EXPECTED_OUTPUT + "\n", outContent.toString());
+        assertEquals("Post 3: Some random error\n", errContent.toString());
     }
 }

@@ -23,7 +23,9 @@ public class PostsIdsFetcher {
      */
     public JsonArray downloadPostsIdsAsJsonArray(String topPostsUrl) {
         JsonArray jsonArray;
-        try (JsonReader jsonReader = Json.createReader(new StringReader(webPageDownloader.downloadWebPage(topPostsUrl)))) {
+        try (JsonReader jsonReader = Json.createReader(
+                new StringReader(webPageDownloader.downloadWebPage(topPostsUrl)))
+        ) {
             jsonArray = jsonReader.readArray();
         }
         return jsonArray;

@@ -1,10 +1,10 @@
-package main;
+package cli;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static main.ArgumentsReader.readArguments;
+import static cli.ArgumentsReader.readArguments;
 
 public class ArgumentCheckerTest {
 
@@ -29,7 +29,7 @@ public class ArgumentCheckerTest {
     }
 
     @Test
-    public void readArguments_shouldThrow_whenSecondArgumentNotNumber() {
+    public void readArguments_shouldThrow_whenSecondArgumentIsNotNumber() {
         try {
             readArguments(new String[]{"--posts", "abc"});
             fail("IllegalArgumentException expected");

@@ -13,12 +13,14 @@ public class WebPageDownloader {
      * Downloads content of given URL and returns it in String format.
      *
      * @param url web address
-     * @throws RuntimeException if page cannot be reached
      * @return downloaded web page content in String form
+     * @throws RuntimeException if page cannot be reached
      */
     public String downloadWebPage(String url) {
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new URL(url).openStream()))
+        ) {
             for (String s = br.readLine(); s != null; s = br.readLine()) {
                 sb.append(s);
             }
