@@ -42,17 +42,28 @@ public class JsonToPostConverter {
      */
 
     public Post convertJsonObjectToPost(JsonObject jsonObject, int rank) {
-        String title = jsonObject.getString("title");
-        String url = jsonObject.getString("url");
-        String author = jsonObject.getString("by");
-        int points = jsonObject.getInt("score");
-        int comments = jsonObject.getInt("descendants");
-        if (title.isEmpty() || title.length() > 256
-                || !URIValidator.isValid(url)
-                || author.isEmpty() || author.length() > 256
-                || points < 0 || comments < 0 || rank < 0) {
-            throw new IllegalArgumentException("One or more fields of this post are in a wrong format");
-        }
+        String title = jsonObject.getString("title", null);
+        checkNotNull(title, "Title");
+        checkThat(title.isEmpty(), "Title field is empty");
+        checkThat(title.length() > 256, "Title is too long");
+
+        String url = jsonObject.getString("url", null);
+        checkNotNull(url, "URL");
+        checkThat(!URIValidator.isValid(url), "URI is not valid");
+
+        String author = jsonObject.getString("by", null);
+        checkNotNull(author, "Author");
+        checkThat(author.isEmpty(), "Author field is empty");
+        checkThat(author.length() > 256, "Author field is too long");
+
+        int points = jsonObject.getInt("score", -1);
+        checkThat(points < 0, "Points is negative number or is not present");
+
+        int comments = jsonObject.getInt("descendants", -1);
+        checkThat(comments < 0, "Comments is negative number or is not present");
+
+        checkThat(rank < 0, "Rank is negative number or is not present" );
+
         return new Post.Builder()
                 .setTitle(title)
                 .setUri(url)
@@ -61,5 +72,17 @@ public class JsonToPostConverter {
                 .setComments(comments)
                 .setRank(rank)
                 .build();
+    }
+
+    private void checkNotNull(Object object, String name) {
+        if (object == null) {
+            throw new IllegalArgumentException(name + " field is not present in the post");
+        }
+    }
+
+    private void checkThat(boolean condition, String errorMessage) {
+        if (condition) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 }

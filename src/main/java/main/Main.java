@@ -1,5 +1,6 @@
 package main;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import data.Post;
 import data.PostsAndErrorMessagesContainer;
 import scraper.*;
@@ -94,6 +95,7 @@ public class Main {
         JsonWriter jsonWriter = writerFactory.createWriter(ps,
                 StandardCharsets.UTF_8);
         jsonWriter.writeArray(jsonArray);
+        ps.println();
         jsonWriter.close();
     }
 }

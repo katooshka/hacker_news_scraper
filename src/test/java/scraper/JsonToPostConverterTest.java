@@ -12,7 +12,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-//TODO: add URI test
 public class JsonToPostConverterTest {
 
     private WebPageDownloader downloader;
@@ -37,10 +36,29 @@ public class JsonToPostConverterTest {
 
     @Test
     public void downloadPostAsJsonObject_ShouldReturnJsonObject() {
-        when(downloader.downloadWebPage("abc")).thenReturn("{\n  \"by\" : \"houston\" \n}");
+        when(downloader.downloadWebPage("abc")).thenReturn("{\n  \"by\" : " +
+                "\"houston\" \n}");
         assertEquals(Json.createObjectBuilder().add("by", "houston").build(),
                 jsonToPostConverter.downloadPostAsJsonObject("abc")
         );
+    }
+
+    @Test
+    public void createPostFromJsonObject_ShouldThrow_WhenFiedlIsNotPresent() {
+        try {
+            JsonObject testJsonObject = Json.createObjectBuilder()
+                    .add("url", "")
+                    .add("by", "")
+                    .add("score", 1)
+                    .add("descendants", 1)
+                    .build();
+            jsonToPostConverter.convertJsonObjectToPost(testJsonObject, 1);
+            fail("IllegalArgumentException expected");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Title field is not present in the post", e
+                    .getMessage());
+        }
+
     }
 
     @Test
@@ -52,11 +70,13 @@ public class JsonToPostConverterTest {
                 .add("score", 1)
                 .add("descendants", 1)
                 .build();
-        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject);
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(
+                testJsonObject, "Title field is empty");
     }
 
     @Test
-    public void createPostFromJsonObject_ShouldThrow_WhenTitleLengthGreaterThan256() {
+    public void
+    createPostFromJsonObject_ShouldThrow_WhenTitleLengthGreaterThan256() {
         JsonObject testJsonObject = Json.createObjectBuilder()
                 .add("title", generate257CharsLongString())
                 .add("url", "")
@@ -64,7 +84,21 @@ public class JsonToPostConverterTest {
                 .add("score", 1)
                 .add("descendants", 1)
                 .build();
-        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject);
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(
+                testJsonObject, "Title is too long");
+    }
+
+    @Test
+    public void createPostFromJsonObject_ShouldThrow_WhenUriIsInvalid() {
+        JsonObject testJsonObject = Json.createObjectBuilder()
+                .add("title", "title")
+                .add("url", "abc")
+                .add("by", "")
+                .add("score", 1)
+                .add("descendants", 1)
+                .build();
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat
+                (testJsonObject, "URI is not valid");
     }
 
     @Test
@@ -76,11 +110,13 @@ public class JsonToPostConverterTest {
                 .add("score", 1)
                 .add("descendants", 1)
                 .build();
-        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject);
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject,
+                "Author field is empty");
     }
 
     @Test
-    public void createPostFromJsonObject_ShouldThrow_WhenAuthorLengthGreaterThan256() {
+    public void
+    createPostFromJsonObject_ShouldThrow_WhenAuthorLengthGreaterThan256() {
         JsonObject testJsonObject = Json.createObjectBuilder()
                 .add("title", "title")
                 .add("url", "https://www.google.co.uk/")
@@ -88,7 +124,8 @@ public class JsonToPostConverterTest {
                 .add("score", 1)
                 .add("descendants", 1)
                 .build();
-        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject);
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject,
+                "Author field is too long");
     }
 
     @Test
@@ -100,11 +137,13 @@ public class JsonToPostConverterTest {
                 .add("score", -1)
                 .add("descendants", 1)
                 .build();
-        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject);
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject,
+                "Points is negative number or is not present");
     }
 
     @Test
-    public void createPostFromJsonObject_ShouldThrow_WhenCommentsLessThanZero() {
+    public void createPostFromJsonObject_ShouldThrow_WhenCommentsLessThanZero
+            () {
         JsonObject testJsonObject = Json.createObjectBuilder()
                 .add("title", "title")
                 .add("url", "https://www.google.co.uk/")
@@ -112,15 +151,17 @@ public class JsonToPostConverterTest {
                 .add("score", 1)
                 .add("descendants", -1)
                 .build();
-        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject);
+        checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(testJsonObject,
+                "Comments is negative number or is not present");
     }
 
-    private void checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat(JsonObject testJsonObject) {
+    private void checkExceptionIsThrownWhenJsonObjectFieldsInWrongFormat
+            (JsonObject testJsonObject, String message) {
         try {
             jsonToPostConverter.convertJsonObjectToPost(testJsonObject, 1);
             fail("IllegalArgumentException expected");
         } catch (IllegalArgumentException e) {
-            assertEquals("One or more fields of this post are in a wrong format", e.getMessage());
+            assertEquals(message, e.getMessage());
         }
     }
 
@@ -137,7 +178,8 @@ public class JsonToPostConverterTest {
             jsonToPostConverter.convertJsonObjectToPost(testJsonObject, -1);
             fail("IllegalArgumentException expected");
         } catch (IllegalArgumentException e) {
-            assertEquals("One or more fields of this post are in a wrong format", e.getMessage());
+            assertEquals("Rank is negative number or is not present", e
+                    .getMessage());
         }
     }
 
