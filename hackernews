@@ -1,2 +1,4 @@
 #!/bin/sh
+
+cd "$(dirname "$0")"
 java -jar target/hacker_news_scraper-1.0-SNAPSHOT.jar $*
