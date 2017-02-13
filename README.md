@@ -1,6 +1,6 @@
-# hacker_news_scraper
+# Hacker News Scraper
 
-Simple command line application that outputs to STDOUT top Hacker News posts in JSON.
+Simple command line application that outputs to STDOUT top Hacker News posts in JSON. The application works using Hacker News API. If errors occur while executing the program, they are printed to STDERR, while correct JSON objects are printed to STDOUT. 
 
 ## Install
 
@@ -26,15 +26,17 @@ You can use command line:
     
     mvn package
     
-    ./hackernews —posts <posts counter>
+    ./hackernews —posts <posts count>
 
-Or you can create a new container from the Dockerfile.
+This type of installation was tested for Ubuntu 14.04.
+
+Alternatively you can create a new container from the Dockerfile.
 
 ## Used libraries
 
 *JUnit* - a unit testing framework for Java. Mostly used among other testing frameworks for this language.
 
-*Mockito* - a mocking framework for testing in Java. Clean and simple.
+*Mockito* - a mocking library for testing in Java. Clean and simple.
 
-*javax.json* - an object model API to process JSON in Java. One of three most commonly used frameworks for JSON processing in Java. 
+*[Json Processing](https://jsonp.java.net/)* - an object model API to process JSON in Java. One of three most commonly used library for JSON processing in Java. 
 
