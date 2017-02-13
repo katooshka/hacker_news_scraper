@@ -6,28 +6,27 @@ Simple command line application that outputs to STDOUT top Hacker News posts in 
 
 You can use command line:
 
-```sudo add-apt-repository ppa:webupd8team/java -y
+    sudo add-apt-repository ppa:webupd8team/java -y
 
-sudo apt-get update
+    sudo apt-get update
 
-sudo apt-get install oracle-java8-installer
+    sudo apt-get install oracle-java8-installer
 
-sudo apt-get install oracle-java8-set-default
-
-sudo apt-get install maven
-
-sudo apt-get install git
-
-git clone https://github.com/katooshka/hacker_news_scraper/
-
-cd hacker_news_scraper
-
-mvn clean
-
-mvn package
-
-./hackernews —posts <posts counter>
-```
+    sudo apt-get install oracle-java8-set-default
+    
+    sudo apt-get install maven
+    
+    sudo apt-get install git
+    
+    git clone https://github.com/katooshka/hacker_news_scraper/
+    
+    cd hacker_news_scraper
+    
+    mvn clean
+    
+    mvn package
+    
+    ./hackernews —posts <posts counter>
 
 Or you can create a new container from the Dockerfile.
 
