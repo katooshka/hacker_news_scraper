@@ -26,7 +26,8 @@ mvn clean
 
 mvn package
 
-./hackernews —posts <posts counter>```
+./hackernews —posts <posts counter>
+```
 
 Or you can create a new container from the Dockerfile.
 
