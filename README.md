@@ -16,9 +16,7 @@ git clone https://github.com/katooshka/hacker_news_scraper/
 cd hacker_news_scraper
 mvn clean
 mvn package
-./hackernews —posts <posts counter>
-```
-
+./hackernews —posts <posts counter>```
 
 Or you can create a new container from the Dockerfile.
 
